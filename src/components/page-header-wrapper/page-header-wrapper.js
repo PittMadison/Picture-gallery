@@ -1,11 +1,11 @@
-import { memo } from 'react';
+import { memo } from "react";
+import { PageHeader } from "../page-header";
 
-export const PageHeaderWrapper = memo(({children}) => {
-        return (
-            <>
-            <div className='app-header'>
-            </div>
-                {children}
-            </>
-        );
+export const PageHeaderWrapper = memo(({ children }) => {
+  return (
+    <>
+      <PageHeader />
+      {children}
+    </>
+  );
 });

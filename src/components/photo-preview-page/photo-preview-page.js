@@ -1,9 +1,10 @@
-import { memo } from 'react';
+import { memo } from "react";
+import { PageHeaderWrapper } from "../page-header-wrapper";
 
 export const PhotoPreviewPage = memo(() => {
-    return (
-        <div className='photo-preview'>
-            photo-preview
-        </div>
-    );
+  return (
+    <PageHeaderWrapper>
+      <div className="photo-preview">photo-preview</div>
+    </PageHeaderWrapper>
+  );
 });
