@@ -5,6 +5,7 @@ import {
 } from "./page-header.constants";
 import { NavigationButton } from "./navigation-button";
 import { useAutoCallback, useAutoMemo } from "hooks.macro";
+import './page-header.scss';
 
 export const PageHeader = memo(() => {
   const navigationButtons = useAutoMemo(() => [
