@@ -2,7 +2,7 @@ import {memo} from 'react';
 
 export const PhotoGridPage = memo(() => {
     return (
-        <div>
+        <div className='photo-grid'>
             TEST
         </div>
     )

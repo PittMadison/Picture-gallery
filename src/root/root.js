@@ -1,7 +1,7 @@
 import {memo} from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { useRootContext, RootContext } from './root.context';
-import { PhotoGridPage } from '../components';
+import { PhotoGridPage, PhotoPreviewPage } from '../components';
 
 
 export const Root = memo(() => {
@@ -9,15 +9,23 @@ export const Root = memo(() => {
 
     return (
         <RootContext.Provider value={value}>
-        <div className='app'>
             <Switch>
                 <Route
                     exact
                     path='/'
                     component={PhotoGridPage}
                 />
+                <Route
+                    path='/favorites'
+                    component={PhotoGridPage}
+                    />
+
+                <Route
+                    path='/photos/:id'
+                    component={PhotoPreviewPage}
+                />
+
             </Switch>
-        </div>
     </RootContext.Provider>
     )
 })
