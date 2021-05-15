@@ -1,9 +1,5 @@
-import { memo } from 'react';
+import { memo } from "react";
 
-const PhotoGridLoader = memo(() => {
-    return (
-        <div className='photo-grid-loader'>
-            loading
-        </div>
-    );
+export const PhotoGridLoader = memo(() => {
+  return <div className="photo-grid__loader" />;
 });

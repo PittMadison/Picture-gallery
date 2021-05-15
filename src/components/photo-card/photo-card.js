@@ -3,13 +3,18 @@ import c from "classnames";
 import { PhotoPlaceholder } from "./photo-placeholder";
 import { useBooleanState } from "../../hooks";
 import "./photo-card.scss";
+import { useAutoCallback } from "hooks.macro";
 
 export const PhotoCard = memo(({ photoUrl }) => {
   const [imageLoaded, finishImageLoading] = useBooleanState(false);
 
+  const renderPhotoPlaceholder = useAutoCallback(
+    () => !imageLoaded && <PhotoPlaceholder />
+  );
+
   return (
     <div className="photo-card">
-      {!imageLoaded && <PhotoPlaceholder />}
+      {renderPhotoPlaceholder()}
       <img
         onLoad={() => finishImageLoading()}
         className={c("photo-card__photo", {

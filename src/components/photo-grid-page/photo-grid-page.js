@@ -3,10 +3,12 @@ import { useAutoCallback } from "hooks.macro";
 import { usePhotoGridPageLogic } from "./use-photo-grid-page-logic";
 import { PageHeaderWrapper } from "../page-header-wrapper";
 import { PhotoCard } from "../photo-card";
+import { PhotoGridLoader } from "./photo-grid-loader";
 import "./photo-grid-page.scss";
 
 export const PhotoGridPage = memo(() => {
-  const { photos, photoGridRef } = usePhotoGridPageLogic();
+  const { photos, photoGridRef, onGridScroll, photosLoading } =
+    usePhotoGridPageLogic();
 
   const renderPhotos = useAutoCallback(() =>
     photos.map((photoUrl, index) => (
@@ -16,17 +18,15 @@ export const PhotoGridPage = memo(() => {
     ))
   );
 
-  const onGridScroll = useAutoCallback((event) => {
-    console.log(event.target.scrollTop)
-  })
-
+  const renderLoader = useAutoCallback(
+    () => photosLoading && <PhotoGridLoader />
+  );
 
   return (
     <PageHeaderWrapper>
+      {renderLoader()}
       <div ref={photoGridRef} onScroll={onGridScroll} className="photo-grid">
-        <ul className="photo-grid__container">
-          {renderPhotos()}
-        </ul>
+        <ul className="photo-grid__container">{renderPhotos()}</ul>
       </div>
     </PageHeaderWrapper>
   );

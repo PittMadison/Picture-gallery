@@ -1,10 +1,16 @@
 import { useEffect, useState, useRef } from "react";
 import { useAutoCallback, useAutoEffect } from "hooks.macro";
 import { getFakerImageUrl } from "../../faker-service";
+import { useBooleanState } from "../../hooks";
 
 export const usePhotoGridPageLogic = () => {
   const photoGridRef = useRef();
   const [photos, setPhotos] = useState([]);
+  const [
+    photosLoading,
+    enablePhotosLoadingProcess,
+    disablePhotosLoadingProcess,
+  ] = useBooleanState(false);
 
   const getNewPhotos = useAutoCallback((photoCount = 10) => {
     const newPhotos = [];
@@ -17,6 +23,18 @@ export const usePhotoGridPageLogic = () => {
     setPhotos([...photos, ...newPhotos]);
   });
 
+  const onGridScroll = useAutoCallback((event) => {
+    const { scrollTop, offsetHeight, scrollHeight } = event.target;
+    if (scrollTop + offsetHeight === scrollHeight) {
+      enablePhotosLoadingProcess();
+
+      setTimeout(async () => {
+        await getNewPhotos();
+        disablePhotosLoadingProcess();
+      }, 1000);
+    }
+  });
+
   useEffect(() => {
     getNewPhotos();
     return () => {
@@ -26,9 +44,12 @@ export const usePhotoGridPageLogic = () => {
   }, []);
 
   useAutoEffect(() => {
+    const pageHeader = document.querySelector(".page-header");
+
     if (
       photos.length &&
-      photoGridRef.current.scrollHeight === photoGridRef.current.offsetHeight
+      photoGridRef.current.scrollHeight <=
+        photoGridRef.current.offsetHeight + pageHeader.offsetHeight
     ) {
       getNewPhotos();
     }
@@ -36,7 +57,8 @@ export const usePhotoGridPageLogic = () => {
 
   return {
     photos,
-    getNewPhotos,
     photoGridRef,
+    onGridScroll,
+    photosLoading,
   };
 };
