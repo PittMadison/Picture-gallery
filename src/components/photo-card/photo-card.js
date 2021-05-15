@@ -16,7 +16,7 @@ export const PhotoCard = memo(({ photoUrl }) => {
           "photo-card__photo--loading": !imageLoaded,
         })}
         src={photoUrl}
-        alt="photo"
+        alt="pic"
         loading="lazy"
       />
     </div>

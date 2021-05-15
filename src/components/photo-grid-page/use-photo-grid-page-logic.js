@@ -1,5 +1,5 @@
-import { useEffect, useState, useRef, useLayoutEffect } from "react";
-import { useAutoCallback } from "hooks.macro";
+import { useEffect, useState, useRef } from "react";
+import { useAutoCallback, useAutoEffect } from "hooks.macro";
 import { getFakerImageUrl } from "../../faker-service";
 
 export const usePhotoGridPageLogic = () => {
@@ -22,7 +22,17 @@ export const usePhotoGridPageLogic = () => {
     return () => {
       setPhotos([]);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useAutoEffect(() => {
+    if (
+      photos.length &&
+      photoGridRef.current.scrollHeight === photoGridRef.current.offsetHeight
+    ) {
+      getNewPhotos();
+    }
+  });
 
   return {
     photos,

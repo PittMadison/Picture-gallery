@@ -16,10 +16,15 @@ export const PhotoGridPage = memo(() => {
     ))
   );
 
+  const onGridScroll = useAutoCallback((event) => {
+    console.log(event.target.scrollTop)
+  })
+
+
   return (
     <PageHeaderWrapper>
-      <div className="photo-grid">
-        <ul ref={photoGridRef} className="photo-grid__container">
+      <div ref={photoGridRef} onScroll={onGridScroll} className="photo-grid">
+        <ul className="photo-grid__container">
           {renderPhotos()}
         </ul>
       </div>

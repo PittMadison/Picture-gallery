@@ -1,7 +1,6 @@
 .photo-grid {
   content-visibility: auto;
-  margin-top: 34px;
-  height: 100%;
+  height: calc(100vh - 44px);
   overflow-y: auto;
 
   &__container {
