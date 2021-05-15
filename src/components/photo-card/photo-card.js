@@ -1,19 +1,20 @@
 import { memo } from "react";
 import c from "classnames";
+import { v4 as uuidv4 } from 'uuid';
 import { PhotoPlaceholder } from "./photo-placeholder";
-import { useBooleanState } from "../../hooks";
 import "./photo-card.scss";
 import { useAutoCallback } from "hooks.macro";
+import { usePhotoCardLogic } from './use-photo-card-logic';
 
-export const PhotoCard = memo(({ photoUrl }) => {
-  const [imageLoaded, finishImageLoading] = useBooleanState(false);
+export const PhotoCard = memo(({ photoUrl, photoId = uuidv4() }) => {
+const {imageLoaded, finishImageLoading, onPhotoCardClick} = usePhotoCardLogic();
 
   const renderPhotoPlaceholder = useAutoCallback(
     () => !imageLoaded && <PhotoPlaceholder />
   );
 
   return (
-    <div className="photo-card">
+    <div onClick={() => onPhotoCardClick(photoUrl, photoId)} className="photo-card">
       {renderPhotoPlaceholder()}
       <img
         onLoad={() => finishImageLoading()}
@@ -22,7 +23,6 @@ export const PhotoCard = memo(({ photoUrl }) => {
         })}
         src={photoUrl}
         alt="pic"
-        loading="lazy"
       />
     </div>
   );

@@ -1,27 +1,19 @@
-import { useEffect, useState, useRef } from "react";
+import { useRef } from "react";
 import { useAutoCallback, useAutoEffect } from "hooks.macro";
-import { getFakerImageUrl } from "../../faker-service";
 import { useBooleanState } from "../../hooks";
+import { useDetectFavoritesPage } from "../../hooks/use-detect-favorites-page";
+import { noop } from "lodash";
+import { useRootContext } from "../../root/root.context";
 
 export const usePhotoGridPageLogic = () => {
   const photoGridRef = useRef();
-  const [photos, setPhotos] = useState([]);
+  const isFavorites = useDetectFavoritesPage();
+  const { photos, getNewPhotos, favorites } = useRootContext();
   const [
     photosLoading,
     enablePhotosLoadingProcess,
     disablePhotosLoadingProcess,
   ] = useBooleanState(false);
-
-  const getNewPhotos = useAutoCallback((photoCount = 10) => {
-    const newPhotos = [];
-
-    while (newPhotos.length < photoCount) {
-      const newImageUrl = getFakerImageUrl();
-      !newPhotos.includes(newImageUrl) && newPhotos.push(newImageUrl);
-    }
-
-    setPhotos([...photos, ...newPhotos]);
-  });
 
   const onGridScroll = useAutoCallback((event) => {
     const { scrollTop, offsetHeight, scrollHeight } = event.target;
@@ -35,30 +27,17 @@ export const usePhotoGridPageLogic = () => {
     }
   });
 
-  useEffect(() => {
-    getNewPhotos();
-    return () => {
-      setPhotos([]);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   useAutoEffect(() => {
-    const pageHeader = document.querySelector(".page-header");
-
-    if (
-      photos.length &&
-      photoGridRef.current.scrollHeight <=
-        photoGridRef.current.offsetHeight + pageHeader.offsetHeight
-    ) {
-      getNewPhotos();
+    if (!isFavorites) {
+      const { scrollHeight, offsetHeight } = photoGridRef.current;
+      scrollHeight === offsetHeight && getNewPhotos();
     }
   });
 
   return {
-    photos,
+    photos: !isFavorites ? photos : favorites,
     photoGridRef,
-    onGridScroll,
+    onGridScroll: !isFavorites ? onGridScroll : noop,
     photosLoading,
   };
 };

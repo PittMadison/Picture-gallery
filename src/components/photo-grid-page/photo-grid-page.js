@@ -11,9 +11,9 @@ export const PhotoGridPage = memo(() => {
     usePhotoGridPageLogic();
 
   const renderPhotos = useAutoCallback(() =>
-    photos.map((photoUrl, index) => (
+    photos.map(({ photoUrl, photoId }, index) => (
       <li key={index}>
-        <PhotoCard photoUrl={photoUrl} />
+        <PhotoCard {...{ photoUrl, photoId }} />
       </li>
     ))
   );
