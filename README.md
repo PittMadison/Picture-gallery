@@ -1,5 +1,13 @@
 Random pic generator and storage
 
+To run this app:
+
+- clone repo
+- go to project folder
+- run command "yarn"
+- run command "yarn start"
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
