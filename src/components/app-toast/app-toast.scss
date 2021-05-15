@@ -1,0 +1,15 @@
+.app-toast {
+  position: fixed;
+  top: 15px;
+  right: -200px;
+  z-index: 500;
+  padding: 8px 14px;
+  background: gold;
+  border-radius: 5px;
+  color: indianred;
+  transition: right .4s ease-in-out;
+
+  &--enabled {
+    right: 15px;
+  }
+}

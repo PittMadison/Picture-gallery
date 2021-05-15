@@ -1,15 +1,24 @@
 .photo-card {
+  height: 100%;
   width: 100%;
   border-radius: 5px;
   position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
+  &--preview {
+    cursor: unset;
+  }
 
   &__photo {
     width: 100%;
+    max-width: 600px;
     display: block;
 
     &--loading {
-        height: 0;
+      height: 0;
     }
   }
 }

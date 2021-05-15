@@ -8,10 +8,10 @@ export const addPhotoToFavorites = (photoUrl, photoId) => {
   }
 };
 
-export const removeFromFavorites = (photoId) => {
+export const removeFromFavorites = (id) => {
   const favorites = localStorage.getItem("favorites");
   const filteredFavorites = JSON.parse(favorites).filter(
-    (id) => id !== photoId
+    ({ photoId }) => id !== photoId
   );
   localStorage.setItem("favorites", JSON.stringify(filteredFavorites));
 };

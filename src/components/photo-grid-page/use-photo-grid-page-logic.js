@@ -7,7 +7,7 @@ import { useRootContext } from "../../root/root.context";
 
 export const usePhotoGridPageLogic = () => {
   const photoGridRef = useRef();
-  const isFavorites = useDetectFavoritesPage();
+  const isFavoritesPage = useDetectFavoritesPage();
   const { photos, getNewPhotos, favorites } = useRootContext();
   const [
     photosLoading,
@@ -28,16 +28,17 @@ export const usePhotoGridPageLogic = () => {
   });
 
   useAutoEffect(() => {
-    if (!isFavorites) {
+    if (!isFavoritesPage) {
       const { scrollHeight, offsetHeight } = photoGridRef.current;
       scrollHeight === offsetHeight && getNewPhotos();
     }
   });
 
   return {
-    photos: !isFavorites ? photos : favorites,
+    photos: !isFavoritesPage ? photos : favorites,
     photoGridRef,
-    onGridScroll: !isFavorites ? onGridScroll : noop,
+    onGridScroll: !isFavoritesPage ? onGridScroll : noop,
     photosLoading,
+    isFavoritesPage,
   };
 };

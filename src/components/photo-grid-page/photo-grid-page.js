@@ -7,13 +7,13 @@ import { PhotoGridLoader } from "./photo-grid-loader";
 import "./photo-grid-page.scss";
 
 export const PhotoGridPage = memo(() => {
-  const { photos, photoGridRef, onGridScroll, photosLoading } =
+  const { photos, photoGridRef, onGridScroll, photosLoading, isFavoritesPage } =
     usePhotoGridPageLogic();
 
   const renderPhotos = useAutoCallback(() =>
     photos.map(({ photoUrl, photoId }, index) => (
       <li key={index}>
-        <PhotoCard {...{ photoUrl, photoId }} />
+        <PhotoCard {...{ photoUrl, photoId, isFavoritesPage }} />
       </li>
     ))
   );

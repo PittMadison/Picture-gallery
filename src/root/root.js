@@ -1,7 +1,7 @@
 import { memo } from "react";
 import { Switch, Route } from "react-router-dom";
 import { RootContext } from "./root.context";
-import { PhotoGridPage, PhotoPreviewPage } from "../components";
+import { AppToast, PhotoGridPage, PhotoPreviewPage } from "../components";
 import { useRootLogic } from "./use-root-logic";
 
 export const Root = memo(() => {
@@ -14,6 +14,7 @@ export const Root = memo(() => {
         <Route path="/favorites" component={PhotoGridPage} />
         <Route path="/photos/:id" component={PhotoPreviewPage} />
       </Switch>
+        <AppToast/>
     </RootContext.Provider>
   );
 });
