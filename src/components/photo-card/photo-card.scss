@@ -1,0 +1,16 @@
+.photo-card {
+  width: 200px;
+  height: 150px;
+  border-radius: 5px;
+  position: relative;
+
+
+  &__photo {
+    width: 100%;
+    display: block;
+
+    &--loading {
+      opacity: 0;
+    }
+  }
+}

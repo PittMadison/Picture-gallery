@@ -5,11 +5,12 @@ import { getFakerImageUrl } from "../../faker-service";
 export const usePhotoGridPageLogic = () => {
   const [photos, setPhotos] = useState([]);
 
-  const getNewPhotos = useAutoCallback((number = 10) => {
+  const getNewPhotos = useAutoCallback((photoCount = 10) => {
     const newPhotos = [];
 
-    for (let i = 0; i < number; i++) {
-      newPhotos.push(getFakerImageUrl());
+    while (newPhotos.length < photoCount) {
+      const newImageUrl = getFakerImageUrl();
+      !newPhotos.includes(newImageUrl) && newPhotos.push(newImageUrl);
     }
 
     setPhotos([...photos, ...newPhotos]);
