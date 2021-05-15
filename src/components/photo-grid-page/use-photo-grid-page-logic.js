@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useLayoutEffect } from "react";
 import { useAutoCallback } from "hooks.macro";
 import { getFakerImageUrl } from "../../faker-service";
 
 export const usePhotoGridPageLogic = () => {
+  const photoGridRef = useRef();
   const [photos, setPhotos] = useState([]);
 
   const getNewPhotos = useAutoCallback((photoCount = 10) => {
@@ -26,5 +27,6 @@ export const usePhotoGridPageLogic = () => {
   return {
     photos,
     getNewPhotos,
+    photoGridRef,
   };
 };

@@ -6,17 +6,23 @@ import { PhotoCard } from "../photo-card";
 import "./photo-grid-page.scss";
 
 export const PhotoGridPage = memo(() => {
-  const { photos } = usePhotoGridPageLogic();
+  const { photos, photoGridRef } = usePhotoGridPageLogic();
 
   const renderPhotos = useAutoCallback(() =>
     photos.map((photoUrl, index) => (
-      <PhotoCard key={index} photoUrl={photoUrl} />
+      <li key={index}>
+        <PhotoCard photoUrl={photoUrl} />
+      </li>
     ))
   );
 
   return (
     <PageHeaderWrapper>
-      <div className="photo-grid">{renderPhotos()}</div>
+      <div className="photo-grid">
+        <ul ref={photoGridRef} className="photo-grid__container">
+          {renderPhotos()}
+        </ul>
+      </div>
     </PageHeaderWrapper>
   );
 });

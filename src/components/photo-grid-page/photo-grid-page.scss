@@ -1,7 +1,13 @@
 .photo-grid {
   content-visibility: auto;
-  justify-items: center;
-  display: grid;
-  grid-template-rows: auto;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  margin-top: 34px;
+  height: 100%;
+  overflow-y: auto;
+
+  &__container {
+    justify-items: center;
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
 }

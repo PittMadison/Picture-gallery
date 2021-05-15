@@ -1,8 +1,8 @@
 import { memo } from "react";
 import c from "classnames";
-import "./photo-card.scss";
-import { PhotoPlaceholder } from "./photo-placeholder/photo-placeholder";
+import { PhotoPlaceholder } from "./photo-placeholder";
 import { useBooleanState } from "../../hooks";
+import "./photo-card.scss";
 
 export const PhotoCard = memo(({ photoUrl }) => {
   const [imageLoaded, finishImageLoading] = useBooleanState(false);
