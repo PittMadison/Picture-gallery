@@ -1,7 +1,6 @@
 import { memo } from "react";
-import { PhotoPlaceholderIcon } from "../icons";
+import { PhotoPlaceholderIcon } from "./photo-placeholder-icon";
 import transparentImageUrl from "./images/transparent-image.png";
-import "./photo-placeholder.scss";
 
 export const PhotoPlaceholder = memo(() => {
   return (

@@ -29,6 +29,7 @@ export const PhotoCard = memo(
             "photo-card__photo--loading": !imageLoaded,
           })}
           src={photoUrl}
+          loading='auto'
           alt="pic"
         />
       </div>

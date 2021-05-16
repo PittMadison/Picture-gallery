@@ -4,8 +4,7 @@ import {
     NAVIGATION_BUTTON_CLASSNAMES,
     NAVIGATION_BUTTON_LINKS_MAP, NAVIGATION_BUTTON_NAMES,
     NAVIGATION_BUTTON_TYPES
-} from '../page-header.constants';
-import './navigation-button.scss';
+} from './page-header.constants';
 
 export const NavigationButton = memo(({type = NAVIGATION_BUTTON_TYPES.photos}) => {
     return (
