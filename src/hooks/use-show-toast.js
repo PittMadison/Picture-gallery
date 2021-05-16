@@ -2,7 +2,7 @@ import { useSnackbar } from "notistack";
 import { useAutoCallback, useAutoMemo } from "hooks.macro";
 
 export const useShowToast = () => {
-  const { enqueueSnackbar } = useSnackbar();
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const showToastTypes = useAutoMemo({
     success: "success",
@@ -10,8 +10,13 @@ export const useShowToast = () => {
     delete: "error",
   });
 
-  const showToast = useAutoCallback((message, type = showToastTypes.success) =>
-    enqueueSnackbar(message, { variant: showToastTypes[type] })
+  const showToast = useAutoCallback(
+    (message, type = showToastTypes.success) => {
+      const key = enqueueSnackbar(message, {
+        variant: showToastTypes[type],
+        onClick: () => closeSnackbar(key),
+      });
+    }
   );
 
   return {
