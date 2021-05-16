@@ -3,19 +3,15 @@ import { useAutoCallback } from "hooks.macro";
 import { v4 as uuidv4 } from "uuid";
 import { getFavorites } from "../services/cache-service";
 import { getRandomImageUrl } from "../services/image-service";
-import { useBooleanState } from "../hooks";
 
 export const useRootLogic = () => {
   const [previewPhoto, setPreviewPhoto] = useState({});
   const [photos, setPhotos] = useState([]);
   const [favorites, setFavorites] = useState(getFavorites());
-  const [toastMessage, setToastMessage] = useState("");
-  const [toastEnabled, enableToast, disableToast] = useBooleanState();
+  const [toastList, setToastList] = useState([]);
 
   const showToast = (toastMessage) => {
-    setToastMessage(toastMessage);
-    enableToast();
-    setTimeout(() => disableToast(), 2000);
+    setToastList([...toastList, { toastMessage, toastId: uuidv4() }]);
   };
 
   const getNewPhotos = useAutoCallback(async (photoCount = 10) => {
@@ -39,7 +35,6 @@ export const useRootLogic = () => {
     previewPhoto,
     setPreviewPhoto,
     showToast,
-    toastEnabled,
-    toastMessage,
+    toastList,
   };
 };

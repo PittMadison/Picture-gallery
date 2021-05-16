@@ -4,8 +4,9 @@ import { useHistory } from "react-router-dom";
 import { useRootContext } from "../../root/root.context";
 import { addPhotoToFavorites } from "../../services/cache-service";
 import { useDetectFavoritesPage } from "../../hooks/use-detect-favorites-page";
+import { noop } from "lodash";
 
-export const usePhotoCardLogic = () => {
+export const usePhotoCardLogic = (isPreview) => {
   const { push } = useHistory();
   const isFavoritesPage = useDetectFavoritesPage();
   const { favorites, setFavorites, previewPhoto, setPreviewPhoto, showToast } =
@@ -13,9 +14,13 @@ export const usePhotoCardLogic = () => {
   const [imageLoaded, finishImageLoading] = useBooleanState(false);
 
   const addToFavorites = useAutoCallback((photoUrl, photoId) => {
-    addPhotoToFavorites(photoUrl, photoId);
-    setFavorites([...favorites, { photoUrl, photoId }]);
-    showToast('Added to favorites')
+    if (!favorites.map(({ photoId }) => photoId).includes(photoId)) {
+      addPhotoToFavorites(photoUrl, photoId);
+      setFavorites([...favorites, { photoUrl, photoId }]);
+      showToast("Added to favorites");
+    } else {
+      showToast("Already in favorites");
+    }
   });
 
   const showPreviewPage = useAutoCallback((photoUrl, photoId) => {
@@ -26,7 +31,11 @@ export const usePhotoCardLogic = () => {
   return {
     imageLoaded,
     finishImageLoading,
-    onPhotoCardClick: isFavoritesPage ? showPreviewPage : addToFavorites,
+    onPhotoCardClick: isFavoritesPage
+      ? showPreviewPage
+      : isPreview
+      ? noop
+      : addToFavorites,
     previewPhoto,
   };
 };

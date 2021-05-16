@@ -9,7 +9,7 @@ import { usePhotoCardLogic } from "./use-photo-card-logic";
 export const PhotoCard = memo(
   ({ isPreview = false, photoUrl, photoId = uuidv4() }) => {
     const { imageLoaded, finishImageLoading, onPhotoCardClick } =
-      usePhotoCardLogic();
+      usePhotoCardLogic(isPreview);
 
     const renderPhotoPlaceholder = useAutoCallback(
       () => !imageLoaded && <PhotoPlaceholder />

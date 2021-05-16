@@ -28,6 +28,8 @@ export const usePhotoGridPageLogic = () => {
   });
 
   useAutoEffect(() => {
+    photoGridRef.current.scrollTop = 0;
+
     if (!isFavoritesPage) {
       const { scrollHeight, offsetHeight } = photoGridRef.current;
       scrollHeight === offsetHeight && getNewPhotos();
