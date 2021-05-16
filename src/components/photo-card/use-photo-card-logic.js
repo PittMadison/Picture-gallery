@@ -4,12 +4,12 @@ import { useHistory } from "react-router-dom";
 import { useRootContext } from "../../root/root.context";
 import { addPhotoToFavorites } from "../../services/cache-service";
 import { useDetectFavoritesPage } from "../../hooks/use-detect-favorites-page";
-import { useSnackbar } from 'notistack';
 import { noop } from "lodash";
+import { useShowToast } from '../../hooks/use-show-toast';
 
 export const usePhotoCardLogic = (isPreview) => {
   const { push } = useHistory();
-  const {enqueueSnackbar} = useSnackbar();
+  const {showToast} = useShowToast();
   const isFavoritesPage = useDetectFavoritesPage();
   const { favorites, setFavorites, previewPhoto, setPreviewPhoto } =
     useRootContext();
@@ -19,9 +19,9 @@ export const usePhotoCardLogic = (isPreview) => {
     if (!favorites.map(({ photoId }) => photoId).includes(photoId)) {
       addPhotoToFavorites(photoUrl, photoId);
       setFavorites([{ photoUrl, photoId }, ...favorites]);
-      enqueueSnackbar("Added to favorites");
+      showToast("Added to favorites");
     } else {
-      enqueueSnackbar("Already in favorites");
+      showToast("Already in favorites");
     }
   });
 
