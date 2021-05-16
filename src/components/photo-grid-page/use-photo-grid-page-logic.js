@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { useAutoCallback, useAutoEffect } from "hooks.macro";
 import { useBooleanState } from "../../hooks";
 import { useDetectFavoritesPage } from "../../hooks/use-detect-favorites-page";
@@ -28,13 +28,15 @@ export const usePhotoGridPageLogic = () => {
   });
 
   useAutoEffect(() => {
-    photoGridRef.current.scrollTop = 0;
-
     if (!isFavoritesPage) {
       const { scrollHeight, offsetHeight } = photoGridRef.current;
       scrollHeight === offsetHeight && getNewPhotos();
     }
   });
+
+  useEffect(() => {
+    photoGridRef.current.scrollTop = 0;
+  }, [isFavoritesPage])
 
   return {
     photos: !isFavoritesPage ? photos : favorites,

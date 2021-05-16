@@ -8,6 +8,7 @@
   border-radius: 5px;
   color: indianred;
   transition: right .4s ease-in-out;
+  pointer-events: none;
 
   &--enabled {
     right: 15px;
