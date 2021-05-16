@@ -1,7 +1,7 @@
 export const addPhotoToFavorites = (photoUrl, photoId) => {
   const favorites = localStorage.getItem("favorites");
   if (favorites) {
-    const extendedFavorites = [...JSON.parse(favorites), { photoUrl, photoId }];
+    const extendedFavorites = [{ photoUrl, photoId }, ...JSON.parse(favorites)];
     localStorage.setItem("favorites", JSON.stringify(extendedFavorites));
   } else {
     localStorage.setItem("favorites", JSON.stringify([{ photoUrl, photoId }]));

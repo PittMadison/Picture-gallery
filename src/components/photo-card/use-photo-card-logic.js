@@ -18,7 +18,7 @@ export const usePhotoCardLogic = (isPreview) => {
   const addToFavorites = useAutoCallback((photoUrl, photoId) => {
     if (!favorites.map(({ photoId }) => photoId).includes(photoId)) {
       addPhotoToFavorites(photoUrl, photoId);
-      setFavorites([...favorites, { photoUrl, photoId }]);
+      setFavorites([{ photoUrl, photoId }, ...favorites]);
       enqueueSnackbar("Added to favorites");
     } else {
       enqueueSnackbar("Already in favorites");
