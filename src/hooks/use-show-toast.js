@@ -12,9 +12,9 @@ export const useShowToast = () => {
 
   const showToast = useAutoCallback(
     (message, type = showToastTypes.success) => {
-      const key = enqueueSnackbar(message, {
+      const snackbarId = enqueueSnackbar(message, {
         variant: showToastTypes[type],
-        onClick: () => closeSnackbar(key),
+        onClick: () => closeSnackbar(snackbarId),
       });
     }
   );
