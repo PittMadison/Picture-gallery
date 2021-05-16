@@ -1,25 +1,25 @@
 import { useSnackbar } from "notistack";
 import { useAutoCallback, useAutoMemo } from "hooks.macro";
 
-export const useShowToast = () => {
+export const useShowSnackbar = () => {
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
-  const showToastTypes = useAutoMemo({
+  const snackbarTypes = useAutoMemo({
     success: "success",
     info: "info",
     delete: "error",
   });
 
-  const showToast = useAutoCallback(
-    (message, type = showToastTypes.success) => {
+  const showSnackbar = useAutoCallback(
+    (message, type = snackbarTypes.success) => {
       const snackbarId = enqueueSnackbar(message, {
-        variant: showToastTypes[type],
+        variant: snackbarTypes[type],
         onClick: () => closeSnackbar(snackbarId),
       });
     }
   );
 
   return {
-    showToast,
+    showSnackbar,
   };
 };

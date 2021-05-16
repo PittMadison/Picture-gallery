@@ -3,11 +3,11 @@ import { useRootContext } from "../../root/root.context";
 import { useAutoCallback } from "hooks.macro";
 import { removeFromFavorites } from "../../services/cache-service";
 import { useHistory } from "react-router-dom";
-import { useShowToast } from '../../hooks/use-show-toast';
+import { useShowSnackbar } from '../../hooks/use-show-snackbar';
 
 export const FavoritesButton = memo(() => {
   const { push } = useHistory();
-  const {showToast} = useShowToast();
+  const {showSnackbar} = useShowSnackbar();
   const {
     favorites,
     setFavorites,
@@ -17,7 +17,7 @@ export const FavoritesButton = memo(() => {
   const onClick = useAutoCallback(() => {
     removeFromFavorites(id);
     setFavorites(favorites.filter(({ photoId }) => id !== photoId));
-    showToast("Removed from favorites", "delete");
+    showSnackbar("Removed from favorites", "delete");
     push("/favorites");
   });
 

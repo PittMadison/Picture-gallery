@@ -5,11 +5,11 @@ import { useRootContext } from "../../root/root.context";
 import { addPhotoToFavorites } from "../../services/cache-service";
 import { useDetectFavoritesPage } from "../../hooks/use-detect-favorites-page";
 import { noop } from "lodash";
-import { useShowToast } from '../../hooks/use-show-toast';
+import { useShowSnackbar } from '../../hooks/use-show-snackbar';
 
 export const usePhotoCardLogic = (isPreview) => {
   const { push } = useHistory();
-  const {showToast} = useShowToast();
+  const {showSnackbar} = useShowSnackbar();
   const isFavoritesPage = useDetectFavoritesPage();
   const { favorites, setFavorites, previewPhoto, setPreviewPhoto } =
     useRootContext();
@@ -19,9 +19,9 @@ export const usePhotoCardLogic = (isPreview) => {
     if (!favorites.map(({ photoId }) => photoId).includes(photoId)) {
       addPhotoToFavorites(photoUrl, photoId);
       setFavorites([{ photoUrl, photoId }, ...favorites]);
-      showToast("Added to favorites");
+      showSnackbar("Added to favorites");
     } else {
-      showToast("Already in favorites", "info");
+      showSnackbar("Already in favorites", "info");
     }
   });
 
