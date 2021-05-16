@@ -11,6 +11,7 @@
   }
 
   &__loader {
+    pointer-events: none;
     position: fixed;
     top: 75px;
     left: 50%;
