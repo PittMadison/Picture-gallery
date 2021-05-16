@@ -21,7 +21,7 @@ export const usePhotoCardLogic = (isPreview) => {
       setFavorites([{ photoUrl, photoId }, ...favorites]);
       showToast("Added to favorites");
     } else {
-      showToast("Already in favorites");
+      showToast("Already in favorites", "info");
     }
   });
 

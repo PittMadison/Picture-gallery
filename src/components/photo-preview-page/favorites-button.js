@@ -17,7 +17,7 @@ export const FavoritesButton = memo(() => {
   const onClick = useAutoCallback(() => {
     removeFromFavorites(id);
     setFavorites(favorites.filter(({ photoId }) => id !== photoId));
-    showToast("Removed from favorites");
+    showToast("Removed from favorites", "delete");
     push("/favorites");
   });
 
